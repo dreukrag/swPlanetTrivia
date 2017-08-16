@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class HeaderComponent extends React.Component {
+export class HeaderComponent extends React.Component {
 
     constructor(props) {
         super(props)
@@ -27,15 +27,15 @@ export default class HeaderComponent extends React.Component {
             <nav className="navbar navbar-inverse navbar-fixed-top">
                 <div className="container ">
                     <ul className="nav navbar-nav navbar-left">
-                        <li>
+                        <li className="navbar-text">
                             <span>Star Wars Planetary Trivia</span>
                         </li>
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
-                        <li>
-                            <span>{this.hits}</span>
+                        <li className="navbar-text">
+                            <span>{this.state.hits}</span>
                             <span>/</span>
-                            <span>{this.misses}</span>
+                            <span>{this.state.misses}</span>
                         </li>
                     </ul>
                 </div>
