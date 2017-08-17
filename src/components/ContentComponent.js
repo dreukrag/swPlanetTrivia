@@ -1,15 +1,11 @@
 import React from 'react'
-import { getPlanetsFromFilm, getPlanet } from '../utils/api';
+import { getPlanetsFromFilm } from '../utils/api';
 
 export class ContentComponent extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            filmsList: [],
-            selPlanet: {
-                films:[]
-            },
             inputPlanet: ''
         }
     }
@@ -21,22 +17,22 @@ export class ContentComponent extends React.Component {
                     <ul>
                         <li>
                             <span>Population</span>
-                            <span>{this.state.selPlanet.population}</span>
+                            <span>{this.props.selPlanet.population}</span>
                         </li>
                         <li>
                             <span>Dominant climate</span>
-                            <span>{this.state.selPlanet.climate}</span>
+                            <span>{this.props.selPlanet.climate}</span>
                         </li>
                         <li>
                             <span>Dominant biomes</span>
-                            <span>{this.state.selPlanet.terrain}</span>
+                            <span>{this.props.selPlanet.terrain}</span>
                         </li>
                         <li>
                             <span># of movies</span>
-                            <span>{this.state.selPlanet.films.length}</span>
+                            <span>{this.props.selPlanet.films.length}</span>
                         </li>
                         <li>
-                            <input type="text" value={this.inputName} onChange={this.handleChange} />
+                            <input type="text" value={this.inputPlanet} onChange={this.handleChange} />
                         </li>
                     </ul>
                 </form>
@@ -50,30 +46,18 @@ export class ContentComponent extends React.Component {
         })
     }
 
-    componentDidMount = () => {
-        getPlanetsFromFilm().then((rsp) => {
-            this.setState({
-                filmsList: rsp
-            });
-            console.log(this.state.filmsList);
-            console.log(this.state.selPlanet)
-            this.setState({
-                selPlanet: this.pickRandomPlanet()
-            })
-            console.log(this.state.selPlanet)
-
-        });
-    }
-
-    pickRandomPlanet = () => {
-        return this.state.filmsList[Math.round(this.state.filmsList.length * Math.random())]
-    }
-
-    validateName = () => {
-        if (this.inputPlanet == this.state.selPlanet.name) {
-            this.props.hit_func;
+    validateName = (event) => {
+        event.preventDefault();
+        console.log('answer', this.state.inputPlanet);
+        console.log('correct', this.props.selPlanet.name);
+        if (this.inputPlanet == this.props.selPlanet.name) {
+            this.props.hit_func();
         } else {
-            this.props.miss_func;
+            this.props.miss_func();
         }
+        this.props.validateAnswer(this.inputPlanet)
+        this.setState({
+            inputPlanet:""
+        })
     }
 }
