@@ -1,1 +1,1 @@
-.ContentComponent__container{margin:10vh 0}.ContentComponent__planetWidget{height:50%;width:50%}
+.ContentComponent__container{position:relative;height:100vh;padding-top:70px}.ContentComponent__planetWidget{height:50%;width:50%;position:relative;left:50%;top:50%;transform:translateX(-50%) translateY(-50%)}.ContentComponent__planetWidget span{float:left;text-align:left;width:50%}.ContentComponent__planetWidget-input{margin:0 auto}.ContentComponent__planetWidget form div{width:100%}

@@ -14,27 +14,25 @@ export class ContentComponent extends React.Component {
         <div className="ContentComponent__container">
             <div className="ContentComponent__planetWidget">
                 <form action="" onSubmit={this.validateName}>
-                    <ul>
-                        <li>
-                            <span>Population</span>
-                            <span>{this.props.selPlanet.population}</span>
-                        </li>
-                        <li>
-                            <span>Dominant climate</span>
-                            <span>{this.props.selPlanet.climate}</span>
-                        </li>
-                        <li>
-                            <span>Dominant biomes</span>
-                            <span>{this.props.selPlanet.terrain}</span>
-                        </li>
-                        <li>
-                            <span># of movies</span>
-                            <span>{this.props.selPlanet.films.length}</span>
-                        </li>
-                        <li>
-                            <input type="text" value={this.inputPlanet} onChange={this.handleChange} />
-                        </li>
-                    </ul>
+                        <div>
+                            <span className="text-left">Population</span>
+                            <span className="text-right">{this.props.selPlanet.population}</span>
+                        </div>
+                        <div>
+                            <span className="text-left">Dominant climate</span>
+                            <span className="text-right">{this.props.selPlanet.climate}</span>
+                        </div>
+                        <div>
+                            <span className="text-left">Dominant biomes</span>
+                            <span className="text-right">{this.props.selPlanet.terrain}</span>
+                        </div>
+                        <div>
+                            <span className="text-left"># of movies</span>
+                            <span className="text-right">{this.props.selPlanet.films.length}</span>
+                        </div>
+                        <div>
+                            <input className="ContentComponent__planetWidget-input" type="text" value={this.inputPlanet} onChange={this.handleChange} />
+                        </div>
                 </form>
             </div>
         </div>
@@ -48,16 +46,13 @@ export class ContentComponent extends React.Component {
 
     validateName = (event) => {
         event.preventDefault();
-        console.log('answer', this.state.inputPlanet);
-        console.log('correct', this.props.selPlanet.name);
-        if (this.inputPlanet == this.props.selPlanet.name) {
-            this.props.hit_func();
-        } else {
-            this.props.miss_func();
+        if(!this.props.isPlaying){return}
+        if (this.props.validateAnswer(this.inputPlanet)) {
+            this.setState({
+                inputPlanet: ""
+            })
+        }else{
+
         }
-        this.props.validateAnswer(this.inputPlanet)
-        this.setState({
-            inputPlanet:""
-        })
     }
 }

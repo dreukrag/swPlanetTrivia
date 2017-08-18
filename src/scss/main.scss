@@ -1,10 +1,28 @@
 .ContentComponent{
     &__container{
-        margin: 10vh 0;
+        position: relative;
+        height: 100vh;
+        padding-top: 70px;
         
     }
     &__planetWidget{
         height: 50%;
         width: 50%;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        span {
+            float: left;
+            text-align: left;
+            width: 50%;
+        }
+        &-input{
+            margin: 0 auto;
+        }
+        form div{
+            width: 100%;
+            display: inline-block;
+        }
     }
 }

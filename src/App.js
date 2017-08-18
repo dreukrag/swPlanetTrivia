@@ -15,7 +15,9 @@ class App extends Component {
       selPlanet: {
         films: []
       },
-      planetHistory: []
+      planetHistory: [],
+      isPlaying:false,
+      loaded:false      
     }
   }
 
@@ -25,53 +27,33 @@ class App extends Component {
         filmsList: rsp
       });
       this.pickRandomPlanet();
+      this.setState({
+        isPlaying:true
+      })
     });
   }
 
   pickRandomPlanet = () => {
     var n = Math.floor(this.state.filmsList.length * Math.random());
-
-    if (this.state.planetHistory.length == this.state.filmsList.length){
+    if (this.state.planetHistory.length == this.state.filmsList.length) {
       console.log('list has been fully played')
-      return;
+      console.log(this.state.planetHistory);    
+      this.setState({ isPlaying:false }); return;
     }
-    if (this.state.planetHistory.indexOf(n) > -1) {
-      console.log('this planet has been picked already!')
-      this.pickRandomPlanet();
-      return;
-    }
-
-    this.setState({
-      selPlanet: this.state.filmsList[n]
-    });
-
+    if (this.state.planetHistory.indexOf(n) > -1) {this.pickRandomPlanet();return;}
+    this.setState({ selPlanet: this.state.filmsList[n] });
     this.blacklistPlanet(n);
   }
 
-  planetPicker = (n) =>{
-    if(this.state.planetHistory.indexOf(n)>-1){
-      return false;
-    }
-  }
-
   blacklistPlanet = (n) => {
-    console.log('blacklisting planet: ', n)
-    if (this.state.planetHistory.indexOf(n) > -1) {
-      console.log('planet is already black listed!')
-      return
-    }
-    this.setState({
-      planetHistory: this.state.planetHistory.concat(n)
-    })
+    if (this.state.planetHistory.indexOf(n) > -1) { console.log('planet is already black listed!'); return; }
+    this.setState({ planetHistory: this.state.planetHistory.concat(n) })
     console.log(this.state.planetHistory);
   }
 
   render() {
     return (
       <div className="App">
-        <style>
-
-        </style>
         <style dangerouslySetInnerHTML={{
           __html: [
             "@font-face{font-family:'star-wars'; src:url('src/fonts/Strjmono.ttf');}"
@@ -79,23 +61,28 @@ class App extends Component {
         }}>
         </style>
         <HeaderComponent hits={this.state.hits} misses={this.state.misses} />
-        <ContentComponent hit_func={this.addHit} miss_func={this.addMiss} selPlanet={this.state.selPlanet} />
+        <ContentComponent validateAnswer={this.validateAnswer} selPlanet={this.state.selPlanet} isPlaying={this.state.isPlaying}/>
         <FooterComponent />
       </div>
     );
   }
   addHit = () => {
-    this.setState({
-      hits: this.state.hits + 1
-    })
+    this.setState({ hits: this.state.hits + 1 })
     this.pickRandomPlanet();
   }
 
   addMiss = () => {
-    this.setState({
-      misses: this.state.misses + 1
-    })
+    this.setState({ misses: this.state.misses + 1 })
     this.pickRandomPlanet();
+  }
+
+  validateAnswer = (a) => {
+    if(!this.state.isPlaying){return}
+    if (a == this.state.selPlanet.name) {
+      this.addHit();
+    } else {
+      this.addMiss();
+    }
   }
 }
 
