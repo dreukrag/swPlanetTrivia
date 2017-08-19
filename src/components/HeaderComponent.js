@@ -15,7 +15,7 @@ export class HeaderComponent extends React.Component {
                         <li className="navbar-text">
                             <span>{this.props.hits}</span>
                             <span>/</span>
-                            <span>{this.props.misses}</span>
+                            <span>{this.props.misses + this.props.hits}</span>
                         </li>
                     </ul>
                 </div>
