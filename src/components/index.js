@@ -1,3 +1,5 @@
 export {ContentComponent} from './ContentComponent'
 export {HeaderComponent} from './HeaderComponent'
 export {FooterComponent} from './FooterComponent'
+export {LoadingWidget} from './LoadingWidget'
+export {StarsWidget} from './StarsWidget'
