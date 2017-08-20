@@ -8,13 +8,12 @@ export class ContentComponent extends React.Component {
         super(props)
         this.state = {
             inputPlanet: '',
-            glowClass:''
         }
     }
 
     render = () => (
         <div className="ContentComponent__container">
-            <div className="ContentComponent__planetWidget " className={this.state.glowClass}>
+            <div className="ContentComponent__planetWidget ">
                 <form className="ContentComponent__form" action="" onSubmit={this.submitAnswer}>
                     <div>
                         <span className="text-left label">Population</span>
@@ -50,23 +49,23 @@ export class ContentComponent extends React.Component {
         })
     }
 
-    applyGlow = (a) => {
-        this.setState({glowClass:'answerGlow-none'})
-        if (a) {
-            this.setState({glowClass:'answerGlow-correct'})
-        }
-        else {
-            this.setState({glowClass:'answerGlow-incorrect'})
-        }
-    }
+    // applyGlow = (a) => {
+    //     this.setState({glowClass:'answerGlow-none'})
+    //     if (a) {
+    //         this.setState({glowClass:'answerGlow-correct'})
+    //     }
+    //     else {
+    //         this.setState({glowClass:'answerGlow-incorrect'})
+    //     }
+    // }
 
     submitAnswer = (event) => {
         event.preventDefault();
         if (!this.props.isPlaying) { return }
         if (this.props.validateAnswer(this.state.inputPlanet)) {
-            this.applyGlow(true);
+            // this.applyGlow(true);
         } else {
-            this.applyGlow(false);
+            // this.applyGlow(false);
         }
         this.setState({ inputPlanet: '' });
     }
