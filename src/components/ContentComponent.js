@@ -1,21 +1,20 @@
 import React from 'react'
 
-import {LoadingWidget, StarsWidget} from '.'
+import { LoadingWidget, StarsWidget } from '.'
 
 export class ContentComponent extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            inputPlanet: ''
+            inputPlanet: '',
+            glowClass:''
         }
     }
 
-    glowClass = '';
-
     render = () => (
         <div className="ContentComponent__container">
-            <div className={"ContentComponent__planetWidget " + this.glowClass + " " + this.props.isPlaying}>
+            <div className="ContentComponent__planetWidget " className={this.state.glowClass}>
                 <form className="ContentComponent__form" action="" onSubmit={this.submitAnswer}>
                     <div>
                         <span className="text-left label">Population</span>
@@ -38,7 +37,7 @@ export class ContentComponent extends React.Component {
                     </div>
                 </form>
             </div>
-            <LoadingWidget loadingVar={this.props.isLoading}/>
+            <LoadingWidget loadingVar={this.props.isLoading} />
             <StarsWidget />
             <div className="bb8"></div>
 
@@ -52,10 +51,13 @@ export class ContentComponent extends React.Component {
     }
 
     applyGlow = (a) => {
-        this.glowClass = '';
-        if (a)      { this.glowClass = 'answerGlow-correct'; }
-        else if(!a) { this.glowClass = 'answerGlow-incorrect'; }
-        else        { this.glowClass = '';}
+        this.setState({glowClass:'answerGlow-none'})
+        if (a) {
+            this.setState({glowClass:'answerGlow-correct'})
+        }
+        else {
+            this.setState({glowClass:'answerGlow-incorrect'})
+        }
     }
 
     submitAnswer = (event) => {
@@ -64,7 +66,7 @@ export class ContentComponent extends React.Component {
         if (this.props.validateAnswer(this.state.inputPlanet)) {
             this.applyGlow(true);
         } else {
-            this.applyGlow(false);            
+            this.applyGlow(false);
         }
         this.setState({ inputPlanet: '' });
     }

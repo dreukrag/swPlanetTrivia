@@ -7,7 +7,7 @@ export class LoadingWidget extends React.Component {
             !this.props.loadingVar ? {} : { display: 'none' }
         }>
             <div className="loadingWidget__container">
-                <p className="loadingWidget__text">LOADING</p>
+                <p className="loadingWidget__text starWars-font1">Loading</p>
                 <div className="loadingWidget__loading">
                     <div className="loadingWidget__dot"></div>
                     <div className="loadingWidget__dot"></div>
