@@ -38,8 +38,6 @@ export class ContentComponent extends React.Component {
             </div>
             <LoadingWidget loadingVar={this.props.isLoading} />
             <StarsWidget />
-            <div className="bb8"></div>
-
         </div>
     )
 
