@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import font1 from './fonts/Starjedi.ttf';
 import font2 from './fonts/Starjhol.ttf';
+import font3 from './fonts/Starjout.ttf';
+import font4 from './fonts/STJEDISE.TTF';
+
 import './App.css';
 import './css/main.css';
 import { HeaderComponent, ContentComponent, FooterComponent } from './components'
@@ -33,6 +36,7 @@ class App extends Component {
       this.setState({
         filmsList: rsp
       });
+      this.pickRandomPlanet();      
       this.setState({
         loaded:true,
         isPlaying:true
@@ -59,18 +63,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <style dangerouslySetInnerHTML={{
-          __html: [
-            "@font-face{font-family:'star-wars1'; src:url('"+font1+"');}"
-          ]
-        }}>
-        </style>
-        <style dangerouslySetInnerHTML={{
-          __html: [
-            "@font-face{font-family:'star-wars2'; src:url('"+font2+"');}"
-          ]
-        }}>
-        </style>
+        <style dangerouslySetInnerHTML={{ __html: [ "@font-face{font-family:'star-wars1'; src:url('"+font1+"');}" ] }}></style>
+        <style dangerouslySetInnerHTML={{ __html: [ "@font-face{font-family:'star-wars2'; src:url('"+font2+"');}" ] }}></style>
+        <style dangerouslySetInnerHTML={{ __html: [ "@font-face{font-family:'star-wars3'; src:url('"+font3+"');}" ] }}></style>
+        <style dangerouslySetInnerHTML={{ __html: [ "@font-face{font-family:'star-wars4'; src:url('"+font4+"');}" ] }}></style>
         <HeaderComponent hits={this.state.hits} misses={this.state.misses} />
         <ContentComponent validateAnswer={this.validateAnswer} selPlanet={this.state.selPlanet} isPlaying={this.state.isPlaying} isLoading={this.state.loaded}/>
         <FooterComponent />
