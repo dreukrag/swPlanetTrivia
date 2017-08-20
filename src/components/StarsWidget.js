@@ -1,5 +1,4 @@
 import React from 'react'
-import { findDOMNode } from 'react-dom'
 
 export class StarsWidget extends React.Component {
 
@@ -32,7 +31,6 @@ export class StarsWidget extends React.Component {
         for (i = 0; i < this.totalObjects; i++) {
             this.stars.push(new this.Star());
         }
-        //this.drawCanvas();
         requestAnimationFrame(() => { this.Update() });
     }
 
@@ -53,16 +51,11 @@ export class StarsWidget extends React.Component {
 
         this.ctx.restore()
         requestAnimationFrame(() => {this.Update()});
-        // f = 0;
-        // for (f = 0; f < this.shootingStars.length; f++) {
-        //     this.shootingStars[f].Update();
-        //     this.shootingStars[f].Draw();
-        // }
     }
 
     Draw = (obj) => {
         this.ctx.fillStyle = "rgba(255,255,255," + obj.Opacity + ")";
-        if (Math.round((Math.random() * this.twinkleFreq)) == 1) {
+        if (Math.round((Math.random() * this.twinkleFreq)) === 1) {
             this.ctx.fillRect(obj.X, obj.Y, this.starSize + 2, this.starSize + 2);
         }
         else {
@@ -70,26 +63,7 @@ export class StarsWidget extends React.Component {
         }
     }
 
-    ShootingStar = () => {
-        var X = 2000;
-        var Y = Math.random() * this.canvas.height;
-        var Length = 1000;
-
-        const Update = function () {
-            X -= this.shootingStarVelocity;
-        };
-
-        const Draw = function () {
-            for (var i = 0; i < this.Length; i++) {
-                var opacity = (0.8 - (0.001 * i));
-                this.ctx.fillStyle = "rgba(255,255,255," + opacity + ")";
-                this.ctx.fillRect(this.X + i, this.Y, this.shootingStarSize, this.shootingStarSize);
-            }
-        };
-    }
-
     Star = () => {
-        // console.log(this.canvas.width)
         var X = Math.random() * this.canvas.width;
         var Y = Math.random() * this.canvas.height;
         var Velocity = (Math.random() * this.maxVelocity);
@@ -101,8 +75,6 @@ export class StarsWidget extends React.Component {
             Velocity: Velocity,
             Opacity: Opacity
         }
-        // console.log(obj)
         return obj
     }
-
 }
