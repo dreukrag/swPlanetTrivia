@@ -33,9 +33,9 @@ class App extends Component {
       this.setState({
         filmsList: rsp
       });
-      this.pickRandomPlanet();
       this.setState({
-        loaded:true
+        loaded:true,
+        isPlaying:true
       })
     });
   }
@@ -43,19 +43,17 @@ class App extends Component {
   pickRandomPlanet = () => {
     var n = Math.floor(this.state.filmsList.length * Math.random());
     if (this.state.planetHistory.length == this.state.filmsList.length) {
-      console.log('list has been fully played')
-      // console.log(this.state.planetHistory);    
       this.setState({ isPlaying:false }); return;
     }
     if (this.state.planetHistory.indexOf(n) > -1) {this.pickRandomPlanet();return;}
     this.setState({ selPlanet: this.state.filmsList[n] });
     this.blacklistPlanet(n);
+    return this.state.filmsList[n];
   }
 
   blacklistPlanet = (n) => {
     if (this.state.planetHistory.indexOf(n) > -1) { console.log('planet is already black listed!'); return; }
     this.setState({ planetHistory: this.state.planetHistory.concat(n) })
-    // console.log(this.state.planetHistory);
   }
 
   render() {
@@ -91,10 +89,17 @@ class App extends Component {
 
   validateAnswer = (a) => {
     if(!this.state.isPlaying){return}
-    if (a == this.state.selPlanet.name) {
+    if ( ( Math.abs(a.length - this.state.selPlanet.name.length) > 2) ){
+      this.addMiss();      
+      return false;
+    }
+
+    if (this.state.selPlanet.name.toUpperCase().includes(a.toUpperCase())) {
       this.addHit();
+      return true;
     } else {
       this.addMiss();
+      return false;      
     }
   }
 }

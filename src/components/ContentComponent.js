@@ -34,12 +34,14 @@ export class ContentComponent extends React.Component {
                         <span className="text-right labelAnswer">{this.props.selPlanet.films.length}</span>
                     </div>
                     <div>
-                        <input className="ContentComponent__planetWidget-input" type="text" value={this.inputPlanet} onChange={this.handleChange} />
+                        <input className="ContentComponent__planetWidget-input" type="text" value={this.state.inputPlanet} onChange={this.handleChange} />
                     </div>
                 </form>
             </div>
             <LoadingWidget loadingVar={this.props.isLoading}/>
             <StarsWidget />
+            <div className="bb8"></div>
+
         </div>
     )
 
@@ -59,11 +61,11 @@ export class ContentComponent extends React.Component {
     submitAnswer = (event) => {
         event.preventDefault();
         if (!this.props.isPlaying) { return }
-        if (this.props.validateAnswer(this.inputPlanet)) {
-            this.setState({ inputPlanet: '' })
+        if (this.props.validateAnswer(this.state.inputPlanet)) {
             this.applyGlow(true);
         } else {
             this.applyGlow(false);            
         }
+        this.setState({ inputPlanet: '' });
     }
 }
